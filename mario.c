@@ -1,4 +1,4 @@
-// prints two mario pyramids of given height
+// prints two mario pyramids of a given height
 
 #include <stdio.h>
 #include <cs50.h>
@@ -17,7 +17,7 @@ int main(void)
 
     int k = height - 1;
     int m = height - k;
-    for (int j = 0; j < height; j++) // loops same number of times as height
+    for (int i = 0; i < height; i++) // loops same number of times as height
     {
         blanks(k);
         hashes(m);
