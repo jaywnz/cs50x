@@ -90,7 +90,7 @@ bool get_checksum(long n, int len) // returns checksum pass/fail
     int odd_total = 0;
     int mod0 = 0;
     int mod1 = 0;
-    float digit = 0; // needs to be more precise for division operation
+    long digit = 0; // needs to be more precise for division operation
     for (int i = 0; i < len; i++)
     {
         if ((i + 1) % 2 == 0) // if the counter is in an even position
