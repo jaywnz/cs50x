@@ -1,10 +1,12 @@
+// calculate readability score of a text using the Coleman-Liau index
+
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include <math.h>
 #include <cs50.h>
 
-int count_letters (string text);
+int count_letters(string text);
 int count_words(string text);
 int count_sentences(string text);
 float calc_index(int l, int w, int s);
@@ -16,9 +18,8 @@ int main(void)
     int w = count_words(text);
     int s = count_sentences(text);
     float index = calc_index(l, w, s);
-    printf("%f\n", index);
 
-    if (round(index) >= 16)
+    if (round(index) >= 16) // if chain determines grade level
     {
         printf("Grade 16+\n");
     }
@@ -28,7 +29,7 @@ int main(void)
     }
     else
     {
-        printf("Grade %i\n", (int) round(index));
+        printf("Grade %i\n", (int) round(index)); // rounds float and casts to int for grade
     }
 }
 
