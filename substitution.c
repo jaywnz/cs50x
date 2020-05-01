@@ -83,27 +83,27 @@ int validate_key(string key)
     // Check key length is 26
     if (strlen(key) != 26)
     {
-        printf("Please supply a valid key (invalid length).\n");
+        printf("Key must be 26 characters long.\n");
         return 1;
     }
 
-    // Check key is all alphanumeric characters
+    // Check key is all alphabetical characters
     for (int i = 0, n = 26; i < n; i++)
     {
         if (isalpha(key[i]) == false)
         {
-            printf("Please supply a valid key (non-alpha characters).\n");
+            printf("Key must be alphabetical.\n");
             return 1;
         }
     }
 
-    // Check key contains each letter and only once
+    // Check key has each alphabetical character and only once
     int counter = 0;
     for (int j = 0, o = 26; j < o; j++)
     {
         for (int k = 0, p = 26; k < p; k++)
         {
-            if (toupper(key[j]) == KEY_INDEX[k])
+            if (KEY_INDEX[j] == toupper(key[k]))
             {
                 counter++;
                 break;
@@ -112,7 +112,8 @@ int validate_key(string key)
     }
     if (counter != 26)
     {
-        printf("Please supply a valid key (characters absent or multiple).\n");
+        printf("Key must have each character only once.\n");
+        return 1;
     }
 
     // If all checks are passed
