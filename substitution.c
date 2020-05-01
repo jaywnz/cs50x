@@ -64,11 +64,8 @@ void encipher(string key, string plaintext, int cipher[])
                         break;
                     }
                 }
-                // else
-                // {
-                //     cipher[j] = plaintext[j];
-                // }
             }
+            // Preserve non-alpha characters
             else
             {
                 cipher[j] = plaintext[j];
@@ -77,7 +74,7 @@ void encipher(string key, string plaintext, int cipher[])
     }
 }
 
-// Checks key to ensure validity
+// Check key to ensure validity
 int validate_key(string key)
 {
     // Check key length is 26
