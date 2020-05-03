@@ -89,7 +89,6 @@ void print_winner(void)
     }
 
     // Bubble sort array with greatest number of votes at start
-    // Temporary struct to hold items being swapped
     candidate tmp[1];
     int swap_counter = -1;
     while (swap_counter != 0)
@@ -107,12 +106,15 @@ void print_winner(void)
         }
     }
 
-    // Print winner(s) with greatest no. votes
+    // Print candidate in top position in any case
+    printf("%s\n", candidates[0].name);
+
+    // Check and print any tied candidates
     for (int j = 0, o = candidate_count; j < o; j++)
     {
-        if (candidates[j].votes >= candidates[j + 1].votes && candidates[j + 1].name != NULL)
+        if (candidates[j + 1].votes == candidates[j].votes && candidates[j + 1].name != NULL)
         {
-            printf("%s\n", candidates[j].name);
+            printf("%s\n", candidates[j + 1].name);
         }
     }
     return;
