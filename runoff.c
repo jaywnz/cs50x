@@ -133,7 +133,6 @@ bool vote(int voter, int rank, string name)
         // If name is a match for valid candidate
         if (strcmp(candidates[i].name, name) == 0)
         {
-
             preferences[voter][rank] = i;
             return true;
         }
@@ -148,13 +147,11 @@ void tabulate(void)
     {
         for (int j = 0; j < candidate_count; j++)
         {
-            if (!candidates[j].eliminated)
+            int voted = preferences[i][j];
+            if (!candidates[voted].eliminated)
             {
-                candidates[j].votes += preferences[i][j];
-            }
-            else
-            {
-                candidates[j + 1].votes += preferences[i][j + 1];
+                candidates[voted].votes += 1;
+                break;
             }
         }
     }
@@ -165,7 +162,6 @@ void tabulate(void)
 bool print_winner(void)
 {
     int threshold = (voter_count / 2) + 1;
-
     for (int i = 0; i < candidate_count; i++)
     {
         if (candidates[i].votes >= threshold)
@@ -180,12 +176,32 @@ bool print_winner(void)
 // Return the minimum number of votes any remaining candidate has
 int find_min(void)
 {
-    int min_vote = candidates[0].votes;
-    for (int i = 1; i < candidate_count; i++)
+    // Bubble sort array from lowest to highest
+    candidate temp[1];
+    int swap = 1;
+    while (swap != 0)
     {
-        if (candidates[i].votes < min_vote)
+        swap = 0;
+        for (int i = 0; i < candidate_count; i++)
         {
-            min_vote = candidates[i].votes;
+            if (candidates[i].votes > candidates[i + 1].votes)
+            {
+                temp[0] = candidates[i];
+                candidates[i] = candidates[i + 1];
+                candidates[i + 1] = temp[0];
+                swap++;
+            }
+        }
+    }
+
+    // Working from start of array, return votes of first non-eliminated candidate
+    int min_vote = 0;
+    for (int j = 0; j < candidate_count; j++)
+    {
+        if (!candidates[j].eliminated)
+        {
+            min_vote = candidates[j].votes;
+            break;
         }
     }
     return min_vote;
@@ -197,7 +213,7 @@ bool is_tie(int min)
     int counter = 0;
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].votes == min)
+        if (candidates[i].votes == min && candidates[i].eliminated == false)
         {
             counter++;
         }
