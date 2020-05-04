@@ -165,7 +165,7 @@ bool print_winner(void)
     float threshold = round(voter_count / 2);
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].votes >= threshold)
+        if (candidates[i].votes > threshold)
         {
             printf("%s\n", candidates[i].name);
             return true;
