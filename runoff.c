@@ -184,7 +184,7 @@ int find_min(void)
         swap = 0;
         for (int i = 0; i < candidate_count; i++)
         {
-            if (candidates[i].votes > candidates[i + 1].votes)
+            if (candidates[i].votes > candidates[i + 1].votes && candidates[i + 1].name != NULL)
             {
                 temp[0] = candidates[i];
                 candidates[i] = candidates[i + 1];
