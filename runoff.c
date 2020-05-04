@@ -133,7 +133,8 @@ bool vote(int voter, int rank, string name)
         // If name is a match for valid candidate
         if (strcmp(candidates[i].name, name) == 0)
         {
-            preferences[voter][i] = rank;
+
+            preferences[voter][rank] = i;
             return true;
         }
     }
@@ -203,9 +204,13 @@ bool is_tie(int min)
     }
 
     if (counter == candidate_count)
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 // Eliminate the candidate (or candidiates) in last place
