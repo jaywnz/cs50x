@@ -222,12 +222,12 @@ bool is_tie(int min)
 
     int tied = 0;
     for (int j = 0; j < candidate_count; j++)
+    {
+        if (!candidates[j].eliminated && candidates[j].votes == min)
         {
-            if (!candidates[j].eliminated && candidates[j].votes == min)
-            {
-                tied++;
-            }
+            tied++;
         }
+    }
 
     if ((candidate_count - eliminated) == tied)
     {
