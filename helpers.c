@@ -38,31 +38,6 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
             image[i][j] = image[i][(width - 1) - j];
             image[i][(width - 1) - j] = tmp[0][0];
         }
-
-        // int col_left = 0;
-        // int col_right = width;
-
-        // while (col_left != col_right)
-        // {
-
-        //     // Make temp and pointers
-        //     RGBTRIPLE tmp[1][1];
-        //     RGBTRIPLE *px_left[1][1];
-        //     RGBTRIPLE *px_right[1][1];
-
-        //     // Put addresses of left and right pixels into pointers
-        //     px_left[0][0] = &image[i][col_left];
-        //     px_right[0][0] = &image[i][col_right];
-
-        //     // Swap pixels
-        //     tmp[0][0] = *px_left[0][0];
-        //     *px_left[0][0] = *px_right[0][0];
-        //     *px_right[0][0] = tmp[0][0];
-
-        //     // Move columns towards centre
-        //     col_left++;
-        //     col_right--;
-        // }
     }
     return;
 }
@@ -185,7 +160,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                         }
                         col_shift++;
                     }
-                    if (i + row_shift >= height)
+                    if (i + row_shift > height - 1)
                     {
                         while (counter < 3)
                         {
@@ -196,7 +171,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                         }
                         break;
                     }
-                    if (j + col_shift >= width)
+                    if (j + col_shift > width - 1)
                     {
                         while (counter < 3)
                         {
