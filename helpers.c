@@ -25,35 +25,44 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    int centre = round(width / 2.0);
+    int counter = 0;
+    RGBTRIPLE tmp[1][1];
+
     // For every row, swap pixels on horizontally opposite sides
     for (int i = 0; i < height; i++)
     {
-        int col_left = 0;
-        int col_right = width;
-
-        int centre = width / 2;
-
-        while (col_left != col_right)
+        for (int j = 0; j < centre; j++)
         {
-
-            // Make temp and pointers
-            RGBTRIPLE tmp[1][1];
-            RGBTRIPLE *px_left[1][1];
-            RGBTRIPLE *px_right[1][1];
-
-            // Put addresses of left and right pixels into pointers
-            px_left[0][0] = &image[i][col_left];
-            px_right[0][0] = &image[i][col_right];
-
-            // Swap pixels
-            tmp[0][0] = *px_left[0][0];
-            *px_left[0][0] = *px_right[0][0];
-            *px_right[0][0] = tmp[0][0];
-
-            // Move columns towards centre
-            col_left++;
-            col_right--;
+            tmp[0][0] = image[i][j];
+            image[i][j] = image[i][width - j];
+            image[i][width - j] = tmp[0][0];
         }
+
+        // int col_left = 0;
+        // int col_right = width;
+
+        // while (col_left != col_right)
+        // {
+
+        //     // Make temp and pointers
+        //     RGBTRIPLE tmp[1][1];
+        //     RGBTRIPLE *px_left[1][1];
+        //     RGBTRIPLE *px_right[1][1];
+
+        //     // Put addresses of left and right pixels into pointers
+        //     px_left[0][0] = &image[i][col_left];
+        //     px_right[0][0] = &image[i][col_right];
+
+        //     // Swap pixels
+        //     tmp[0][0] = *px_left[0][0];
+        //     *px_left[0][0] = *px_right[0][0];
+        //     *px_right[0][0] = tmp[0][0];
+
+        //     // Move columns towards centre
+        //     col_left++;
+        //     col_right--;
+        // }
     }
     return;
 }
