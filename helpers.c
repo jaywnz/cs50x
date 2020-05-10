@@ -118,7 +118,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     int gy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
     RGBTRIPLE values[height][width];
     RGBTRIPLE grid[3][3];
-    int counter;
 
     // Iterate over rows
     for (int i = 0; i < height; i++)
@@ -136,50 +135,17 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 col_shift = -1;
                 while (col_shift < 2)
                 {
-                    counter = 0;
-                    // Catch boundary errors and set pixels to black
+                    // Catch boundary errors
                     if (i + row_shift < 0)
                     {
-                        while (counter < 3)
-                        {
-                            grid[0][counter].rgbtBlue = 0;
-                            grid[0][counter].rgbtGreen = 0;
-                            grid[0][counter].rgbtRed = 0;
-                            counter++;
-                        }
                         row_shift++;
                     }
                     if (j + col_shift < 0)
                     {
-                        while (counter < 3)
-                        {
-                            grid[counter][0].rgbtBlue = 0;
-                            grid[counter][0].rgbtGreen = 0;
-                            grid[counter][0].rgbtRed = 0;
-                            counter++;
-                        }
                         col_shift++;
                     }
-                    if (i + row_shift > height - 1)
+                    if (i + row_shift > height - 1 || j + col_shift > width - 1)
                     {
-                        while (counter < 3)
-                        {
-                            grid[2][counter].rgbtBlue = 0;
-                            grid[2][counter].rgbtGreen = 0;
-                            grid[2][counter].rgbtRed = 0;
-                            counter++;
-                        }
-                        break;
-                    }
-                    if (j + col_shift > width - 1)
-                    {
-                        while (counter < 3)
-                        {
-                            grid[counter][2].rgbtBlue = 0;
-                            grid[counter][2].rgbtGreen = 0;
-                            grid[counter][2].rgbtRed = 0;
-                            counter++;
-                        }
                         break;
                     }
                     // Add channel values to grid array
@@ -210,6 +176,11 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     gy_blue += (grid[k][l].rgbtBlue * gy[k][l]);
                     gy_green += (grid[k][l].rgbtGreen * gy[k][l]);
                     gy_red += (grid[k][l].rgbtRed * gy[k][l]);
+
+                    // Clear grid
+                    grid[k][l].rgbtBlue = 0;
+                    grid[k][l].rgbtGreen = 0;
+                    grid[k][l].rgbtRed = 0;
                 }
             }
 
