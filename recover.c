@@ -70,8 +70,10 @@ int main(int argc, char *argv[])
             fwrite(buffer, 1, 512, img);
         }
     }
-    fclose(img);
-    fclose(card);
     free(filename);
     free(buffer);
+    fclose(img);
+    fclose(card);
+
+    return 0;
 }
