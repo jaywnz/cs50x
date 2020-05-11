@@ -133,7 +133,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     {
                         continue;
                     }
-                    grid[o + 1][p + 1].rgbtBlue = image[i][j].rgbtBlue;
+                    grid[o + 1][p + 1].rgbtBlue = image[i + o][j + p].rgbtBlue;
                     grid[o + 1][p + 1].rgbtGreen = image[i + o][j + p].rgbtGreen;
                     grid[o + 1][p + 1].rgbtRed = image[i + o][j + p].rgbtRed;
                 }
