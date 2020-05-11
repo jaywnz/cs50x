@@ -132,10 +132,12 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 for (int p = -1; p < 2; p++)
                 {
+                    // Catch border errors
                     if (i + o < 0 || p + j < 0 || j + p > width - 1 || i + o > height - 1)
                     {
                         continue;
                     }
+                    // Add values around pixel to temp grid arrays
                     else
                     {
                         grid_blue[o + 1][p + 1] = image[i + o][j + p].rgbtBlue;
@@ -145,7 +147,6 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                 }
             }
 
-            // Calculate Gx and Gy values from grid around pixel
             int gx_blue = 0;
             int gy_blue = 0;
             int gx_green = 0;
@@ -153,6 +154,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             int gx_red = 0;
             int gy_red = 0;
 
+            // Calculate Gx and Gy values in each channel from grid around pixel
             for (int k = 0; k < 3; k++)
             {
                 for (int l = 0; l < 3; l++)
