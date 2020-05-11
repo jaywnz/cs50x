@@ -117,7 +117,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
     int gx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
     int gy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
     RGBTRIPLE values[height][width];
-    RGBTRIPLE grid[3][3];
+    int grid_blue[3][3] = {0};
+    int grid_green[3][3] = {0};
+    int grid_red[3][3] = {0};
 
     // Iterate over rows
     for (int i = 0; i < height; i++)
@@ -125,6 +127,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         // Iterate over columns
         for (int j = 0; j < width; j++)
         {
+            // Iterate over 3x3 grid around pixel
             for (int o = -1; o < 2; o++)
             {
                 for (int p = -1; p < 2; p++)
@@ -133,42 +136,14 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     {
                         continue;
                     }
-                    grid[o + 1][p + 1].rgbtBlue = image[i + o][j + p].rgbtBlue;
-                    grid[o + 1][p + 1].rgbtGreen = image[i + o][j + p].rgbtGreen;
-                    grid[o + 1][p + 1].rgbtRed = image[i + o][j + p].rgbtRed;
+                    else
+                    {
+                        grid_blue[o + 1][p + 1] = image[i + o][j + p].rgbtBlue;
+                        grid_green[o + 1][p + 1] = image[i + o][j + p].rgbtGreen;
+                        grid_red[o + 1][p + 1] = image[i + o][j + p].rgbtRed;
+                    }
                 }
             }
-
-            // int row_shift = -1;
-            // int col_shift = -1;
-            // // Find 3x3 grid around pixel
-            // while (row_shift < 2)
-            // {
-            //     // Reset row counter
-            //     col_shift = -1;
-            //     while (col_shift < 2)
-            //     {
-            //         // Catch boundary errors
-            //         if (i + row_shift < 0)
-            //         {
-            //             row_shift++;
-            //         }
-            //         if (j + col_shift < 0)
-            //         {
-            //             col_shift++;
-            //         }
-            //         if (j + col_shift > width - 1)
-            //         {
-            //             break;
-            //         }
-            //         // Add channel values to grid array
-            //         grid[row_shift + 1][col_shift + 1].rgbtBlue = image[i + row_shift][j + col_shift].rgbtBlue;
-            //         grid[row_shift + 1][col_shift + 1].rgbtGreen = image[i + row_shift][j + col_shift].rgbtGreen;
-            //         grid[row_shift + 1][col_shift + 1].rgbtRed = image[i + row_shift][j + col_shift].rgbtRed;
-            //         col_shift++;
-            //     }
-            //     row_shift++;
-            // }
 
             // Calculate Gx and Gy values from grid around pixel
             int gx_blue = 0;
@@ -182,18 +157,18 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 for (int l = 0; l < 3; l++)
                 {
-                    gx_blue += (grid[k][l].rgbtBlue * gx[k][l]);
-                    gx_green += (grid[k][l].rgbtGreen * gx[k][l]);
-                    gx_red += (grid[k][l].rgbtRed * gx[k][l]);
+                    gx_blue += (grid_blue[k][l] * gx[k][l]);
+                    gx_green += (grid_green[k][l] * gx[k][l]);
+                    gx_red += (grid_red[k][l] * gx[k][l]);
 
-                    gy_blue += (grid[k][l].rgbtBlue * gy[k][l]);
-                    gy_green += (grid[k][l].rgbtGreen * gy[k][l]);
-                    gy_red += (grid[k][l].rgbtRed * gy[k][l]);
+                    gy_blue += (grid_blue[k][l] * gy[k][l]);
+                    gy_green += (grid_green[k][l] * gy[k][l]);
+                    gy_red += (grid_red[k][l] * gy[k][l]);
 
                     // Clear grid
-                    grid[k][l].rgbtBlue = 0;
-                    grid[k][l].rgbtGreen = 0;
-                    grid[k][l].rgbtRed = 0;
+                    grid_blue[k][l] = 0;
+                    grid_green[k][l] = 0;
+                    grid_red[k][l] = 0;
                 }
             }
 
