@@ -132,7 +132,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             {
                 for (int p = -1; p < 2; p++)
                 {
-                    if (i + o < 0 || p + j < 0 || j + p > width - 1)
+                    if (i + o < 0 || p + j < 0 || j + p > width - 1 || i + o > height - 1)
                     {
                         continue;
                     }
