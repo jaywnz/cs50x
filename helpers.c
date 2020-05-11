@@ -125,37 +125,50 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
         // Iterate over columns
         for (int j = 0; j < width; j++)
         {
-            int row_shift = -1;
-            int col_shift = -1;
-
-            // Find 3x3 grid around pixel
-            while (row_shift < 2)
+            for (int o = -1; o < 2; o++)
             {
-                // Reset row counter
-                col_shift = -1;
-                while (col_shift < 2)
+                for (int p = -1; p < 2; p++)
                 {
-                    // Catch boundary errors
-                    if (i + row_shift < 0)
+                    if (i + o < 0 || p + j < 0 || j + p > width - 1)
                     {
-                        row_shift++;
+                        continue;
                     }
-                    if (j + col_shift < 0)
-                    {
-                        col_shift++;
-                    }
-                    if (j + col_shift > width - 1)
-                    {
-                        break;
-                    }
-                    // Add channel values to grid array
-                    grid[row_shift + 1][col_shift + 1].rgbtBlue = image[i + row_shift][j + col_shift].rgbtBlue;
-                    grid[row_shift + 1][col_shift + 1].rgbtGreen = image[i + row_shift][j + col_shift].rgbtGreen;
-                    grid[row_shift + 1][col_shift + 1].rgbtRed = image[i + row_shift][j + col_shift].rgbtRed;
-                    col_shift++;
+                    grid[o + 1][p + 1].rgbtBlue = image[i][j].rgbtBlue;
+                    grid[o + 1][p + 1].rgbtGreen = image[i + o][j + p].rgbtGreen;
+                    grid[o + 1][p + 1].rgbtRed = image[i + o][j + p].rgbtRed;
                 }
-                row_shift++;
             }
+
+            // int row_shift = -1;
+            // int col_shift = -1;
+            // // Find 3x3 grid around pixel
+            // while (row_shift < 2)
+            // {
+            //     // Reset row counter
+            //     col_shift = -1;
+            //     while (col_shift < 2)
+            //     {
+            //         // Catch boundary errors
+            //         if (i + row_shift < 0)
+            //         {
+            //             row_shift++;
+            //         }
+            //         if (j + col_shift < 0)
+            //         {
+            //             col_shift++;
+            //         }
+            //         if (j + col_shift > width - 1)
+            //         {
+            //             break;
+            //         }
+            //         // Add channel values to grid array
+            //         grid[row_shift + 1][col_shift + 1].rgbtBlue = image[i + row_shift][j + col_shift].rgbtBlue;
+            //         grid[row_shift + 1][col_shift + 1].rgbtGreen = image[i + row_shift][j + col_shift].rgbtGreen;
+            //         grid[row_shift + 1][col_shift + 1].rgbtRed = image[i + row_shift][j + col_shift].rgbtRed;
+            //         col_shift++;
+            //     }
+            //     row_shift++;
+            // }
 
             // Calculate Gx and Gy values from grid around pixel
             int gx_blue = 0;
