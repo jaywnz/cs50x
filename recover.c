@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Open file for reading
+    // Open card image for reading
     FILE *card = fopen(argv[1], "r");
     // Check whether file can be opened for reading
     if (!card)
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
                 fwrite(buffer, 1, 512, img);
             }
         }
-        else if (jpeg_count > 0)
+        else if (jpeg_count > -1)
         {
             // Keep writing to JPEG already open
             fwrite(buffer, 1, 512, img);
@@ -70,6 +70,5 @@ int main(int argc, char *argv[])
     free(buffer);
     fclose(img);
     fclose(card);
-
     return 0;
 }
