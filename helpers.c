@@ -144,7 +144,7 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
                     {
                         col_shift++;
                     }
-                    if (i + row_shift > height - 1 || j + col_shift > width - 1)
+                    if (j + col_shift > width - 1)
                     {
                         break;
                     }
@@ -185,9 +185,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             }
 
             // Calculate combined Sobel value for each channel
-            double gx_gy_blue = round(sqrt(pow(gx_blue, 2.0) + pow(gy_blue, 2.0)));
-            double gx_gy_green = round(sqrt(pow(gx_green, 2.0) + pow(gy_green, 2.0)));
-            double gx_gy_red = round(sqrt(pow(gx_red, 2.0) + pow(gy_red, 2.0)));
+            double gx_gy_blue = sqrt(pow((float) gx_blue, 2.0) + pow((float) gy_blue, 2.0));
+            double gx_gy_green = sqrt(pow((float) gx_green, 2.0) + pow((float) gy_green, 2.0));
+            double gx_gy_red = sqrt(pow((float) gx_red, 2.0) + pow((float) gy_red, 2.0));
 
             // Check for and adjust levels over 255
             if (gx_gy_blue > 255)
@@ -204,9 +204,9 @@ void edges(int height, int width, RGBTRIPLE image[height][width])
             }
 
             // Record calculated Sobel values before moving on to next pixel in image
-            values[i][j].rgbtBlue = (int) gx_gy_blue;
-            values[i][j].rgbtGreen = (int) gx_gy_green;
-            values[i][j].rgbtRed = (int) gx_gy_red;
+            values[i][j].rgbtBlue = round(gx_gy_blue);
+            values[i][j].rgbtGreen = round(gx_gy_green);
+            values[i][j].rgbtRed = round(gx_gy_red);
         }
     }
 
