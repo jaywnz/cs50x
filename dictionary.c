@@ -18,7 +18,7 @@ typedef struct node
 node;
 
 // Number of buckets in hash table
-const unsigned int N = 10000;
+const unsigned int N = 14000;
 
 // Hash table
 node *table[N];
@@ -121,6 +121,7 @@ unsigned int size(void)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
+    // Iterates over nodes in linked lists and frees them
     for (int i = 0; i < N; i++)
     {
         node *cursor = table[i];
